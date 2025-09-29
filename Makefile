@@ -1,4 +1,4 @@
-# Track-And-Ignore Workflow - Makefile
+# Track-Ignored-Stuff - Makefile
 # Common shortcuts for safe publishing and internal sync.
 
 SHELL := /bin/bash
