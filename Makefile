@@ -1,4 +1,4 @@
-# OSS Internal Publish Kit - Makefile
+# Track-And-Ignore Workflow - Makefile
 # Common shortcuts for safe publishing and internal sync.
 
 SHELL := /bin/bash
