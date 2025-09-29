@@ -16,7 +16,7 @@ help:
 	@echo "Targets:"
 	@echo "  make init                     # install pre-push hook (.githooks)"
 	@echo "  make check-hook               # verify hook installed"
-	@echo "  make publish                  # publish PUBLIC_BRANCHES to PUBLIC_REMOTE (filtering INTERNAL)"
+	@echo "  make publish                  # publish PUBLIC_BRANCHES to PUBLIC_REMOTE (filtering __INTERNAL__)"
 	@echo "  make publish-main             # publish main only"
 	@echo "  make publish-branches BRANCHES=\"main release/v1\""
 	@echo "  make sync-internal            # subtree-push INTERNAL_DIR to INTERNAL_REMOTE/INTERNAL_BRANCH"

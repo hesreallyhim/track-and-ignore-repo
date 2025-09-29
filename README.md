@@ -2,7 +2,7 @@
 
 ## What's this for, then?
 
-For developers who (a) are working on a repository and are pushing code to a public GitHub repo, (b) have a set of files, folders, or resources, that they do _NOT_ wish to share publicly, but (c) still want to maintain version control over that private, or "INTERNAL" directory. (Therefore, _merely_ git-ignoring that directory does not serve their needs.)
+For developers who (a) are working on a repository and are pushing code to a public GitHub repo, (b) have a set of files, folders, or resources, that they do _NOT_ wish to share publicly, but (c) still want to maintain version control over that private, or internal, directory. (Therefore, _merely_ git-ignoring that directory does not serve their needs.)
 
 ## Example use case - OK, will that help?
 
