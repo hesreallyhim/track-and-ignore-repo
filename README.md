@@ -50,7 +50,7 @@ make sync-internal
 - Ensure `__INTERNAL__` is a **normal directory** (not a submodule) if you use subtree sync.
 - For new public branches, add them to `PUBLIC_BRANCHES` (e.g., `make publish-branches BRANCHES="main release/v1"`).
 - The hook allows pushes to remotes matching `ALLOW_REMOTES_REGEX` (default: `origin-internal`); adjust if needed inside `.githooks/pre-push`.
-- It's not unlikely that there are other ways to implement this workflow - but I was not able to find one.
+- It's not unlikely that there are other ways to implement this workflow - but I was not able to find one. I mean I barely even understand how this one works, and the other solutions were even more show-off-y.
 
 ## Contributing
 
