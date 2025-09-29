@@ -17,14 +17,14 @@ This workflow implements the "single working repo + safe publish" workflow:
 - Designate a public remote (or remotes) where you want to push your repo to, and where you don't want the history to ever contain any files that are inside the `__INTERNAL__/` directory.
 - Optionally: Designate a private remote (or remotes) where you would like to push all the contents, including `__INTERNAL__/` 
 - A **pre-push hook** blocks accidental pushes of `__INTERNAL__/` to public remotes.
-- A **publish script** exports a fresh, cleaned clone (using `git filter-repo`) and pushes only allowed branches.
+- A **publish script** exports a fresh, cleaned clone where internal files are expunged from the record (using `git filter-repo`) and pushes only allowed branches.
 - (Optional) `sync-internal.sh` uses **git subtree** to push just `__INTERNAL__/` to a private internal repo.
 
 ### THE GIST
 
 - Protect your internal directory from your public branches with a pre-push hook for safety.
 - When you want to push the public code up (to `main`, for example), a publish script will _create a temporary local clone_ of the repo, remove any and all trace of the private directory from all commits in that branch using [`git-filter-repo`](https://github.com/newren/git-filter-repo/), then push that up to the public origin.
-- Additionally, using subtrees to track just the internal directory, you have the option to keep a _private_ repository on GitHub where you can push the entire codebase.
+- Additionally, using subtrees to track just the internal directory, you have the option to keep a _private_ repository on GitHub where you can push your internal docs, for example if you want to share them.
 
 ## Quick start
 ```bash
