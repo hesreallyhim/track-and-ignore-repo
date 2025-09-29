@@ -26,15 +26,13 @@ This workflow implements the "single working repo + safe publish" workflow:
 - When you want to push the public code up (to `main`, for example), a publish script will _create a temporary local clone_ of the repo, remove any and all trace of the private directory from all commits in that branch using [`git-filter-repo`](https://github.com/newren/git-filter-repo/), then push that up to the public origin.
 - Additionally, using subtrees to track just the internal directory, you have the option to keep a _private_ repository on GitHub where you can push the entire codebase.
 
-It's not unlikely that there are other ways to implement this workflow - but I was not able to find one.
-
 ## Quick start
 ```bash
 # 1) Install hook (from repo root)
 make init
 
 # 2) Configure remotes
-git remote add origin-public git@github.com:<you>/<public>.git           # public
+git remote add origin-public git@github.com:<you>/<public>.git              # public
 git remote add origin-internal git@github.com:<you>/<private-internal>.git  # optional
 
 # 3) Publish main safely
@@ -52,3 +50,12 @@ make sync-internal
 - Ensure `__INTERNAL__` is a **normal directory** (not a submodule) if you use subtree sync.
 - For new public branches, add them to `PUBLIC_BRANCHES` (e.g., `make publish-branches BRANCHES="main release/v1"`).
 - The hook allows pushes to remotes matching `ALLOW_REMOTES_REGEX` (default: `origin-internal`); adjust if needed inside `.githooks/pre-push`.
+- It's not unlikely that there are other ways to implement this workflow - but I was not able to find one.
+
+## Contributing
+
+Meh. If you have a really good idea, feel free to open an Issue or a Pull Request.
+
+## License
+
+MIT
