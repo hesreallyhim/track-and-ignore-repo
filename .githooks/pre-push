@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Blocks pushes that include changes under __INTERNAL__/ to public remotes.
+# Allowlist remotes that are explicitly internal (e.g., for subtree sync).
+INTERNAL_DIR="${INTERNAL_DIR:-__INTERNAL__}"
+ALLOW_REMOTES_REGEX="${ALLOW_REMOTES_REGEX:-^(origin-internal)$}"
+
+remote_name="${1:-}"
+remote_url="${2:-}"
+
+# If pushing to an allowed internal remote, skip checks.
+if [[ "${remote_name}" =~ ${ALLOW_REMOTES_REGEX} ]]; then
+  exit 0
+fi
+
+blocked=0
+# stdin: <local ref> <local sha> <remote ref> <remote sha>
+while read -r local_ref local_sha remote_ref remote_sha; do
+  # Handle deletions (local sha all zeros)
+  if [[ "${local_sha}" == "0000000000000000000000000000000000000000" ]]; then
+    continue
+  fi
+
+  if [[ -z "${remote_sha}" || "${remote_sha}" == "0000000000000000000000000000000000000000" ]]; then
+    # New branch push: examine full tree of local tip
+    files="$(git ls-tree -r --name-only "${local_sha}")"
+  else
+    # Normal update: diff old..new
+    files="$(git diff --name-only "${remote_sha}..${local_sha}")"
+  fi
+
+  if echo "${files}" | grep -qE "^${INTERNAL_DIR}/"; then
+    echo "ERROR: Push to '${remote_name}' includes paths under '${INTERNAL_DIR}/'. Aborting." >&2
+    echo "Hint: publish via scripts/publish.sh (which strips ${INTERNAL_DIR}/) or push to an allowed internal remote." >&2
+    blocked=1
+  fi
+done
+
+exit "${blocked}"
