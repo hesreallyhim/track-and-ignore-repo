@@ -28,6 +28,14 @@ else
   PUBLIC_URL="$(git -C "${SRC_REPO}" remote get-url "${PUBLIC_REMOTE}")"
 fi
 
+# Guard: PUBLIC_REMOTE must be a single token (no spaces)
+if [[ -z "${PUBLIC_REMOTE_URL:-}" ]]; then
+  if [[ "${PUBLIC_REMOTE:-}" =~ [[:space:]] ]]; then
+    echo "ERROR: PUBLIC_REMOTE must be a single remote name (got: '${PUBLIC_REMOTE}')." >&2
+    exit 2
+  fi
+fi
+
 # Check dependencies
 command -v git >/dev/null || { echo "git required"; exit 2; }
 command -v git-filter-repo >/dev/null || { echo "git-filter-repo required"; exit 2; }
@@ -51,9 +59,16 @@ fi
 REMOTE_NAME="public-tmp"
 git remote add "${REMOTE_NAME}" "${PUBLIC_URL}"
 
+# Prime lease state so --force-with-lease has the remote-tracking refs it needs
+git fetch "${REMOTE_NAME}" --prune
+
 for br in ${PUBLIC_BRANCHES}; do
   if git show-ref --quiet --heads "refs/heads/${br}"; then
+  if [[ "${PUSH_FORCE:-0}" == "1" ]]; then
+    git push "${REMOTE_NAME}" "${br}:${br}" --force
+  else
     git push "${REMOTE_NAME}" "${br}:${br}" --force-with-lease
+  fi
   else
     echo "Skip: branch '${br}' not found in export"
   fi

@@ -4,10 +4,10 @@
 SHELL := /bin/bash
 
 # Defaults (override at invocation: make publish PUBLIC_BRANCHES="main release/v1")
-PUBLIC_REMOTE ?= origin origin-public
+PUBLIC_REMOTE ?= origin-public
 PUBLIC_BRANCHES ?= main
 INTERNAL_REMOTE ?= origin-internal
-INTERNAL_BRANCH ?= main
+INTERNAL_BRANCH ?= dev-internal
 INTERNAL_DIR ?= __INTERNAL__
 
 .PHONY: help init check-hook publish publish-main publish-branches sync-internal feature merge-into-main merge-from-main
