@@ -2,7 +2,6 @@
 set -euo pipefail
 
 echo "[setup] Fetching Track-Ignored-Stuff files..."
-tmpdir="$(mktemp -d)"
 
 # Replace with URLs to the raw kit files in your repo (or gist)
 BASE_URL="https://raw.githubusercontent.com/hesreallyhim/track-ignored-stuff/main"
