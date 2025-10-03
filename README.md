@@ -101,7 +101,7 @@ apt install git-filter-repo   # Ubuntu/Debian
 
 ```bash
 # 1️⃣ Run the `simple-setup.sh` script (downloads `.githooks/`, `scripts/`, and `Makefile`)
-curl -fsSL https://github.com/hesreallyhim/track-ignored-stuff/simple-setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/hesreallyhim/track-ignored-stuff/main/simple-setup.sh | bash
 
 # 2️⃣ Install the pre-push hook
 make init
