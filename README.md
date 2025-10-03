@@ -100,14 +100,17 @@ apt install git-filter-repo   # Ubuntu/Debian
 ### Setup (30 seconds)
 
 ```bash
-# 1️⃣ Install the pre-push hook
+# 1️⃣ Run the `simple-setup.sh` script (downloads `.githooks/`, `scripts/`, and `Makefile`)
+curl -fsSL https://github.com/hesreallyhim/track-ignored-stuff/simple-setup.sh | bash
+
+# 2️⃣ Install the pre-push hook
 make init
 
-# 2️⃣ Configure your remotes
+# 3️⃣ Configure your remotes
 git remote add origin-public git@github.com:username/public-repo.git
 git remote add origin-internal git@github.com:username/private-repo.git  # optional
 
-# 3️⃣ Create your internal directory
+# 4️⃣ Create your internal directory
 mkdir __INTERNAL__
 echo "# My secret notes" > __INTERNAL__/notes.md
 git add __INTERNAL__/
